@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yt-clip"
+requires-python = ">= 3.12.3"
+authors = [
+    {name = "Willow Ciesialka", email = "wciesialka@gmail.com"}
+]
+description = "Download via yt-dlp and then clip and remux in one command."
+readme = {file = "README.md", content-type = "text/markdown"}
+license-files = ["LICENSE"]
+keywords = ["yt-dlp", "ffmpeg", "youtube", "download", "video", "remux", "clip"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Video"
+]
+dynamic = ["version", "dependencies"]
+
+[project.urls]
+Repository = "https://github.com/wciesialka/yt-clip"
+Issues = "https://github.com/wciesialka/yt-clip/issues"
+
+[project.scripts]
+yt-clip = "ytclip.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = {attr = "ytclip.__version__"}
+dependencies = {file = "requirements.txt"}
