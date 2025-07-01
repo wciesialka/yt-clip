@@ -48,7 +48,8 @@ def __writable_path_type(_arg: str) -> Path | BinaryIO:
         return path
 
 def __get_parser() -> ArgumentParser:
-    parser = ArgumentParser(description="Download via yt-dlp and then clip and remux in one command.")
+    parser = ArgumentParser(description="Download via yt-dlp and then clip and remux in one command.",
+                            epilog="Requires yt-dlp and ffmpeg to be accessible via the system's PATH.")
     parser.add_argument('-o', '--output', 
                         type=__writable_path_type, 
                         dest="output",
