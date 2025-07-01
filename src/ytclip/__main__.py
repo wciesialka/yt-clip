@@ -2,7 +2,11 @@ import subprocess
 from typing import Optional
 from pathlib import Path
 from sys import stderr
+from time import strftime
 from ytclip.cli import parse_args
+
+def timestamp(*args, **kwargs):
+    print(strftime("\x1b[0m[%H:%M:%S]"), *args, **kwargs)
 
 def download(url: str) -> bytes:
     process = subprocess.run(["yt-dlp", "--quiet", "-o", '-', url], 
@@ -43,17 +47,17 @@ def main():
     url = args.url
     start = args.start
     end = args.end
-    print("Downloading video...")
+    timestamp("\x1b[95mDownloading video...\x1b[0m")
     video = download(url)
-    print("Trimming and converting...")
+    timestamp("\x1b[95mTrimming and converting...\x1b[0m")
     converted_video = trim_and_convert(video, start=start, end=end)
-    print("Writing...")
+    timestamp("\x1b[95mWriting to disk...\x1b[0m")
     if isinstance(output, Path):
         with open(output, "wb") as f:
             f.write(converted_video)
     else:
         output.write(converted_video)
-    print("Done!")
+    timestamp("\x1b[92mDone!\x1b[0m")
 
 if __name__ == "__main__":
     main()
